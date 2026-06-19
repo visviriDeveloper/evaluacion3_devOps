@@ -1,0 +1,21 @@
+global:
+# Intervalo por defecto entre cada scrape (recolección)
+  scrape_interval: 15s
+# Tiempo máximo para evaluar reglas de alerta
+  evaluation_interval: 15s
+scrape_configs:
+  # Prometheus se monitorea a sí mismo
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+  - job_name: 'spring-boot-app'
+  # Ruta donde están las métricas (no es la ruta por defecto /metrics)
+    metrics_path: '/actuator/prometheus'
+  # Intervalo específico para este job (sobreescribe el global)
+    scrape_interval: 10s
+    static_configs:
+    # Nombre de servicio Docker + puerto de la app
+      - targets: [ 'app-spring:8080' ]
+        labels:
+          environment: 'development'
+          team: 'backend'
