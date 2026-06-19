@@ -75,7 +75,7 @@ public class AutoService {
 
         // 4. Si pasa todas las validaciones, actualizamos el estado en el repositorio
         repository.updateEstado(auto.getId());
-        return 2; // Todo correcto.
+        return 2;
     }
 
     /**

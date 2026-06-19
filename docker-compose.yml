@@ -1,11 +1,9 @@
-version: '3.8'
 services:
   app-spring:
     build:
       context: .
     container_name: mi-spring-app
     working_dir: /app
-    command: java -jar /app/app.jar
     volumes:
       - ./logs:/app/logs
     ports:
@@ -14,7 +12,7 @@ services:
     networks:
       - monitoring-net
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "wget", "-f", "http://localhost:8080/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -23,8 +21,9 @@ services:
     image: grafana/promtail:latest
     volumes:
       # Promtail lee la MISMA carpeta física del host
-      - ./logs:/var/log/app
-      - ./promtail-config.yml:/etc/promtail/config.yml
+      - ./logs:/var/log/spring
+      # CAMBIO AQUÍ: Añadimos /promtail/ a la ruta del host
+      - ./promtail/promtail-config.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
     networks: [ monitoring-net ]
     depends_on: [ loki]
@@ -32,7 +31,8 @@ services:
   loki:
     image: grafana/loki:2.9.0
     ports: [ "3100:3100" ]
-    networks: [ loki-net ]
+    networks:
+      - monitoring-net
 
   prometheus:
     image: prom/prometheus:latest
