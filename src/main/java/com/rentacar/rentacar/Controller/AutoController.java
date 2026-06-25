@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import ch.qos.logback.classic.Logger;
-import org.jboss.logging.MDC;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ import com.rentacar.rentacar.Service.AutoService;
 @RestController // Define que esta clase es un controlador REST (maneja datos JSON).
 @RequestMapping("/api/autos") // Ruta base para todos los endpoints de este controlador.
 public class AutoController {
-    private static final Logger log = (Logger) LoggerFactory.getLogger(AutoController.class);
+   private static final Logger log = LoggerFactory.getLogger(AutoController.class);
     @GetMapping("/trigger")
     public ResponseEntity<Map<String, Object>> triggerLog(
             @RequestParam(value = "level", defaultValue = "info") String level,
