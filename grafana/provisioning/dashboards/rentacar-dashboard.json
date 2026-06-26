@@ -1,0 +1,153 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "Uso de CPU (%)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "editorMode": "code",
+          "expr": "process_cpu_usage{job=\"spring-boot-app\"} * 100",
+          "legendFormat": "JVM (App Rentacar)",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "editorMode": "code",
+          "expr": "system_cpu_usage{job=\"spring-boot-app\"} * 100",
+          "legendFormat": "Sistema Operativo (Host)",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "fillOpacity": 15
+          },
+          "unit": "percent"
+        }
+      }
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "id": 2,
+      "title": "Uso de Memoria Heap (JVM)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "editorMode": "code",
+          "expr": "sum(jvm_memory_used_bytes{job=\"spring-boot-app\", area=\"heap\"})",
+          "legendFormat": "Memoria Usada",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "editorMode": "code",
+          "expr": "sum(jvm_memory_committed_bytes{job=\"spring-boot-app\", area=\"heap\"})",
+          "legendFormat": "Memoria Reservada",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": { "drawStyle": "line", "fillOpacity": 10 },
+          "unit": "bytes"
+        }
+      }
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "id": 3,
+      "title": "Rendimiento y Llamadas por Endpoint (RPS)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "editorMode": "code",
+          "expr": "rate(http_server_requests_seconds_count{job=\"spring-boot-app\"}[1m])",
+          "legendFormat": "{{uri}} [{{status}}]",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": { "drawStyle": "bar", "fillOpacity": 30 },
+          "unit": "pps"
+        }
+      }
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "id": 4,
+      "title": "Tiempos de Respuesta Promedio (Latencia)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "editorMode": "code",
+          "expr": "rate(http_server_requests_seconds_sum{job=\"spring-boot-app\"}[1m]) / rate(http_server_requests_seconds_count{job=\"spring-boot-app\"}[1m]) * 1000",
+          "legendFormat": "{{uri}} (ms)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear"
+          },
+          "unit": "ms"
+        }
+      }
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["springboot", "rentacar"],
+  "time": { "from": "now-15m", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Microservicio Rentacar - Control de Mandos",
+  "version": 1
+}

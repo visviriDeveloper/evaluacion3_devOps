@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline -B
 
 # 2. Copiamos el código fuente y compilamos el archivo JAR
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean package 
 
 # --- Etapa 2: Runtime (Ejecución) ---
 # Usamos solo el JRE 21 (más ligero) para correr la aplicación
