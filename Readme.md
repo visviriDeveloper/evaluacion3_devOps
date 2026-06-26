@@ -11,7 +11,8 @@ Este es un microservicio desarrollado en **Java con Spring Boot** para la gesti�
 * **Lombok**: Para la reducción de código boilerplate (Getters/Setters).
 * **Jakarta Validation**: Para asegurar la integridad de los datos de entrada.
 * **Maven**: Gestor de dependencias.
-
+* **SonarQube**: Para la inspección continua de la calidad del código, análisis estático y detección de vulnerabilidades.
+* **Grafana & Loki**: Para la observabilidad de la aplicación, permitiendo el monitoreo mediante dashboards interactivos y la centralización y consulta de logs en tiempo real.
 ---
 
 ## 🏗️ Arquitectura del Proyecto
@@ -68,7 +69,8 @@ Para validar la lógica v1, asegúrese de probar los siguientes escenarios:
 
 ---
 
-## 👤 Autor
+## 👤 Autores
 
-* **Jose Campos - Docente FullStack1**
-* **Versión:** 1.0 (Marzo 2026)
+* **Matias Wenger**
+* * **Álvaro Morales**
+* **Versión:** 1.0 (Junio 2026)
