@@ -24,6 +24,8 @@ USER spring:spring
 # 4. Copiamos el artefacto construido desde la etapa anterior
 COPY --from=build /app/target/*.jar app.jar
 
+USER root
+
 RUN mkdir -p /app/logs && chmod 777 /app/logs
 # 5. Exponemos el puerto estándar de Spring Boot
 EXPOSE 8080
